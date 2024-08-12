@@ -50,7 +50,11 @@ class CalculatorViewModel : ViewModel() {
                 null -> return
             }
             state = state.copy(
-                number1 = result.toString().take(15),
+                number1 = if (result % 1.0 == 0.0) {
+                    result.toInt().toString()
+                } else {
+                    String.format("%.4f", result)
+                },
                 number2 = "",
                 operation = null
             )
@@ -95,6 +99,6 @@ class CalculatorViewModel : ViewModel() {
     }
 
     companion object {
-        private const val MAX_NUM_LENGTH = 8
+        private const val MAX_NUM_LENGTH = 15
     }
 }
